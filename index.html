@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Insurance Quote Form</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <!--Adobe Launch--->
+    <script src="https://assets.adobedtm.com/236ca7d75265/e6152241d220/launch-d673bb9c9e9b-development.min.js"
+        async></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        // document.getElementById("crm-id").value = urlParams.get("crmId");
+        // document.getElementById("plan-id").value = urlParams.get("planId");
+        window.digitalData = {
+            page: {
+                pageInfo: {
+                    pageName: "Health Form Page",
+                    pageType: "form",
+                    siteSection: "QuoteFlow",
+                    destinationURL: window.location.href,
+                },
+            },
+            user: { profile: [{ profileInfo: {}, attributes: {} }] },
+            healthcare: { profileForm: {} },
+            event: { eventType: "pageView", eventTime: new Date().toISOString() },
+            device: {},
+            web: { webInteraction: {} },
+            placecontext: { geo: {} }
+        };
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f7f9fc;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #1a73e8;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+
+        input {
+            width: 90%;
+        }
+
+        select {
+            width: 95%;
+        }
+
+        select[multiple] {
+            height: auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .full-width {
+            grid-column: span 2;
+        }
+
+        button {
+            padding: 12px 20px;
+            background: #1a73e8;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background: #155ab6;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Complete Your Health Profile</h2>
+        <form id="full-health-form">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>CRM ID (pre-filled)</label>
+                    <input type="text" id="crm-id"/>
+                </div>
+                <div class="form-group">
+                    <label>Plan ID (pre-filled)</label>
+                    <input type="text" id="plan-id"/>
+                </div>
+
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" id="full-name" required />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="email" required />
+                </div>
+
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="phone" required />
+                </div>
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" id="age" min="0" />
+                </div>
+
+                <div class="form-group">
+                    <label>Gender</label>
+                    <select id="gender">
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Zip Code</label>
+                    <input type="text" id="zip" />
+                </div>
+
+                <div class="form-group">
+                    <label>Marital Status</label>
+                    <select id="marital-status">
+                        <option>Single</option>
+                        <option>Married</option>
+                        <option>Divorced</option>
+                        <option>Widowed</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Family Size</label>
+                    <input type="number" id="family-size" min="1" max="20" />
+                </div>
+
+                <div class="form-group">
+                    <label>Do you have any existing health insurance?</label>
+                    <select id="existing-insurance">
+                        <option>Yes</option>
+                        <option>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Do you smoke?</label>
+                    <select id="smoking">
+                        <option>No</option>
+                        <option>Yes</option>
+                        <option>Occasionally</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Do you consume alcohol?</label>
+                    <select id="alcohol">
+                        <option>No</option>
+                        <option>Yes</option>
+                        <option>Occasionally</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <fieldset style="border: none; padding: 0;">
+                        <legend style="font-weight: 600; margin-bottom: 10px;">Chronic Conditions (select all that
+                            apply)</legend>
+
+                        <div style="display: flex; flex-wrap: wrap; gap: 20px;">
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="Diabetes" /> Diabetes
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="Hypertension" /> Hypertension
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="Asthma" /> Asthma
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="Heart Disease" /> Heart Disease
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="Thyroid" /> Thyroid
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="Kidney Disorder" /> Kidney Disorder
+                            </label>
+                            <label style="display: flex; align-items: center; gap: 6px;">
+                                <input type="checkbox" name="chronic" value="None" /> None
+                            </label>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="form-group">
+                    <label>Family History of Chronic Illness</label>
+                    <textarea id="family-history"></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <label>Other Medical Conditions (if any)</label>
+                    <textarea id="other-medical"></textarea>
+                </div>
+
+                <div class="form-group full-width">
+                    <button type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script>
+        navigator.geolocation.getCurrentPosition((position) => {
+            digitalData.placecontext.geo.latitude = position.coords.latitude;
+            digitalData.placecontext.geo.longitude = position.coords.longitude;
+        });
+        document.getElementById("full-health-form").addEventListener("submit", function (e) {
+            e.preventDefault();
+            digitalData.user.profile[0].profileInfo = {
+                crmId: document.getElementById("crm-id").value,
+                email: document.getElementById("email").value,
+                fullName: document.getElementById("full-name").value,
+                phoneNumber: document.getElementById("phone").value
+            };
+            digitalData.healthcare.profileForm = {
+                age: document.getElementById("age").value,
+                gender: document.getElementById("gender").value,
+                zip: document.getElementById("zip").value,
+                familySize: document.getElementById("family-size").value,
+                maritalStatus: document.getElementById("marital-status").value,
+                existingInsurance: document.getElementById("existing-insurance").value,
+                smoking: document.getElementById("smoking").value,
+                alcohol: document.getElementById("alcohol").value,
+                familyHistory: document.getElementById("family-history").value,
+                otherMedical: document.getElementById("other-medical").value,
+                planId: document.getElementById("plan-id").value,
+                chronicConditions: Array.from(document.querySelectorAll('input[name="chronic"]:checked')).map(cb => cb.value)
+            };
+            digitalData.event = {
+                eventType: "formSubmission",
+                eventTime: new Date().toISOString(),
+            };
+            console.log("Form submitted: ", JSON.stringify(digitalData, null, 2));
+            alert("Your response has been recorded.");
+        });
+    </script>
+</body>
+
+</html>
