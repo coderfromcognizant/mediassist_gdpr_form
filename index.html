@@ -7,10 +7,6 @@
     <title>Insurance Quote Form</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!--Adobe Launch--->
-    <script src="https://assets.adobedtm.com/236ca7d75265/e6152241d220/launch-d673bb9c9e9b-development.min.js"
-        async></script>
-
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         // document.getElementById("crm-id").value = urlParams.get("crmId");
@@ -21,17 +17,28 @@
                     pageName: "Health Form Page",
                     pageType: "form",
                     siteSection: "QuoteFlow",
+                    server: window.location.host,
                     destinationURL: window.location.href,
                 },
             },
             user: { profile: [{ profileInfo: {}, attributes: {} }] },
             healthcare: { profileForm: {} },
-            event: { eventType: "pageView", eventTime: new Date().toISOString() },
+            event: { eventType: "formOpened"},
             device: {},
             web: { webInteraction: {} },
             placecontext: { geo: {} }
         };
+
+        function sendEvent(eventName) {
+            const customEvent = new CustomEvent(eventName);
+            console.log(customEvent);
+            document.body.dispatchEvent(customEvent);
+            }
     </script>
+
+    <!--Adobe Launch--->
+    <script src="https://assets.adobedtm.com/236ca7d75265/e6152241d220/launch-d673bb9c9e9b-development.min.js" async></script>
+
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -277,6 +284,7 @@
                 eventTime: new Date().toISOString(),
             };
             console.log("Form submitted: ", JSON.stringify(digitalData, null, 2));
+            sendEvent("formSubmitted");
             alert("Your response has been recorded.");
         });
     </script>
