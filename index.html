@@ -9,7 +9,9 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        // document.getElementById("crm-id").value = urlParams.get("crmId");
+        console.log(urlParams.get("email"));
+        const email = urlParams.get("email");
+        // document.getElementById("email-id").value = urlParams.get("email");
         // document.getElementById("plan-id").value = urlParams.get("planId");
         window.digitalData = {
             page: {
@@ -21,9 +23,9 @@
                     destinationURL: window.location.href,
                 },
             },
-            user: { profile: [{ profileInfo: {}, attributes: {} }] },
-            healthcare: { profileForm: {} },
-            event: { eventType: "formOpened"},
+            user: [{ profile: [{ profileInfo: {}, attributes: { email } }] }],
+            mediAssistDetails: {},
+            event: { eventType: "formOpened" },
             device: {},
             web: { webInteraction: {} },
             placecontext: { geo: {} }
@@ -33,11 +35,12 @@
             const customEvent = new CustomEvent(eventName);
             console.log(customEvent);
             document.body.dispatchEvent(customEvent);
-            }
+        }
     </script>
 
     <!--Adobe Launch--->
-    <script src="https://assets.adobedtm.com/236ca7d75265/e6152241d220/launch-d673bb9c9e9b-development.min.js" async></script>
+    <script src="https://assets.adobedtm.com/236ca7d75265/e6152241d220/launch-d673bb9c9e9b-development.min.js"
+        async></script>
 
     <style>
         body {
@@ -127,12 +130,12 @@
         <form id="full-health-form">
             <div class="form-grid">
                 <div class="form-group">
-                    <label>CRM ID (pre-filled)</label>
-                    <input type="text" id="crm-id"/>
+                    <label>Email (pre-filled)</label>
+                    <input type="text" id="email-id" />
                 </div>
                 <div class="form-group">
                     <label>Plan ID (pre-filled)</label>
-                    <input type="text" id="plan-id"/>
+                    <input type="text" id="plan-id" />
                 </div>
 
                 <div class="form-group">
@@ -259,13 +262,12 @@
         });
         document.getElementById("full-health-form").addEventListener("submit", function (e) {
             e.preventDefault();
-            digitalData.user.profile[0].profileInfo = {
-                crmId: document.getElementById("crm-id").value,
+            digitalData.user[0].profile[0].profileInfo = {
                 email: document.getElementById("email").value,
                 fullName: document.getElementById("full-name").value,
                 phoneNumber: document.getElementById("phone").value
             };
-            digitalData.healthcare.profileForm = {
+            digitalData.mediAssistDetails = {
                 age: document.getElementById("age").value,
                 gender: document.getElementById("gender").value,
                 zip: document.getElementById("zip").value,
@@ -281,10 +283,9 @@
             };
             digitalData.event = {
                 eventType: "formSubmission",
-                eventTime: new Date().toISOString(),
             };
             console.log("Form submitted: ", JSON.stringify(digitalData, null, 2));
-            sendEvent("formSubmitted");
+            sendEvent("form.submitted");
             alert("Your response has been recorded.");
         });
     </script>
