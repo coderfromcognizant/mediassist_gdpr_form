@@ -25,7 +25,7 @@
             },
             user: [{ profile: [{ profileInfo: {}, attributes: { email } }] }],
             mediAssistDetails: {},
-            event: { eventType: "formOpened" },
+            event: { eventType: "form.opened" },
             device: {},
             web: { webInteraction: {} },
             placecontext: { geo: {} }
@@ -282,7 +282,7 @@
                 chronicConditions: Array.from(document.querySelectorAll('input[name="chronic"]:checked')).map(cb => cb.value)
             };
             digitalData.event = {
-                eventType: "formSubmission",
+                eventType: "form.submitted",
             };
             console.log("Form submitted: ", JSON.stringify(digitalData, null, 2));
             sendEvent("form.submitted");
