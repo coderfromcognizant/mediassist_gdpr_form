@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        console.log(urlParams.get("email"));
-        const email = urlParams.get("email");
+        // const urlParams = new URLSearchParams(window.location.search);
+        // console.log(urlParams.get("email"));
+        // const email = urlParams.get("email");
         // document.getElementById("email-id").value = urlParams.get("email");
         // document.getElementById("plan-id").value = urlParams.get("planId");
         window.digitalData = {
@@ -23,7 +23,7 @@
                     destinationURL: window.location.href,
                 },
             },
-            user: [{ profile: [{ profileInfo: {}, attributes: { email } }] }],
+            user: [{ profile: [{ profileInfo: {}, attributes: { } }] }],
             mediAssistDetails: {},
             event: { eventType: "form.opened" },
             device: {},
@@ -263,14 +263,18 @@
         document.getElementById("full-health-form").addEventListener("submit", function (e) {
             e.preventDefault();
             digitalData.user[0].profile[0].profileInfo = {
-                email: document.getElementById("email").value,
+                //email: document.getElementById("email-id").value,
                 fullName: document.getElementById("full-name").value,
                 phoneNumber: document.getElementById("phone").value
             };
+            digitalData.user[0].profile[0].attributes = {
+                email: document.getElementById("email-id").value,
+            }
             digitalData.mediAssistDetails = {
                 age: document.getElementById("age").value,
                 gender: document.getElementById("gender").value,
                 zip: document.getElementById("zip").value,
+                email: document.getElementById("email").value,
                 familySize: document.getElementById("family-size").value,
                 maritalStatus: document.getElementById("marital-status").value,
                 existingInsurance: document.getElementById("existing-insurance").value,
